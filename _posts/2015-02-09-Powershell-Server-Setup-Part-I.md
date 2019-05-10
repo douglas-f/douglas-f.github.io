@@ -25,7 +25,7 @@ Now we do not have DHCP on any of our server VLANS which means once the OS is in
 To start out I am using “Read-Host” to get a nice prompt for the info.
 
 {{% "
-    #Prompting for the IP info
+#Prompting for the IP info
 $IPAddress = Read-Host "Enter IP Address"
 $Subnet = Read-Host "Enter Subnet Address"
 $Gateway = Read-Host "Enter Gateway Address"
@@ -33,3 +33,5 @@ $DNS1 = Read-Host "Enter First DNS Address"
 $DNS2 = Read-Host "Enter Second DNS Address"
 $DNS = ($DNS1, $DNS2) # this is set like this bc the SetDNSServerSearchOrder only takes one option "
 %}}
+
+Now that our script knows what the IP info is and has it assigned to variables we can use we can use this obscure bit of WMI calls I found long ago trying to figure out how to do this.
