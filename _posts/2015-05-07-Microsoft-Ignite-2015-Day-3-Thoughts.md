@@ -1,3 +1,4 @@
+---
 title: "Microsoft Ignite 2015: Day 3 Thoughts"
 excerpt_separator: "<!--more-->"
 categories:

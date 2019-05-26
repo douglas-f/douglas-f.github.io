@@ -1,3 +1,4 @@
+---
 title: "Disabling License Features in O365"
 excerpt_separator: "<!--more-->"
 categories:
