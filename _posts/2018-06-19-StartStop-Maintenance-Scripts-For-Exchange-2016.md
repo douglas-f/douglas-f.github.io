@@ -1,4 +1,4 @@
-title: "Start/Stop Maintenance Scripts for Exchange 2016"
+title: "Start-Stop Maintenance Scripts for Exchange 2016"
 excerpt_separator: "<!--more-->"
 categories:
   - Blog
