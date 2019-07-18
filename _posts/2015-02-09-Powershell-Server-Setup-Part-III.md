@@ -10,9 +10,9 @@ tags:
   - Automation
 ---
 
-This is the final part of my server setup script. If you missed them check out Part I and Part II. I suppose I should point out when I use all of these I’ve got an ISO with the scripts that I store on our datastores in ESX/Hyper-V and mount them so I don’t need working network connectivity to run this all.
+This is the final part of my server setup script. If you missed the previous posts, check out Part I and Part II. I suppose I should point out when I use all of these I’ve got an ISO with the scripts that I store on our datastores in ESX/Hyper-V and mount them, so I don’t need a working network connection to run this all.
 
-Now the final part of my setup script doesn’t do a whole lot, mostly getting packages for AV/Logging/Backup and storing it in the folder I created earlier along with install the SNMP role for our monitoring software.  Getting the packages is rather simple
+Now the final part of my setup script doesn’t do a whole lot, mostly getting packages for AV/Logging/Backup and storing it in the folder I created earlier along with install the SNMP role for our monitoring software.  Getting the packages is rather simple.e
 
 <!--more-->
 
@@ -33,7 +33,7 @@ Get-ChildItem –path "\\FILELOCATIONHERE" | copy-item -Destination C:\PowerShel
 &nbsp;
 ```
 
-And then installing SNMP is straightfoward as well.
+And then installing SNMP is straightforward as well.
 
 ```powershell
 # Installing SNMP Feature
@@ -47,7 +47,7 @@ Import-Module ServerManager
 Get-WindowsFeature -Name SNMP* | Add-WindowsFeature -IncludeManagementTools -Credential $user | Out-Null
 ```
 
-And that’s it. Now all I have to do is go into that folder run the installers instead of navigating to different shares on the network. Also it that you delete them as you’re finished so you know what you’ve done as inevitably something will pull you away from this. If you have other software to grab its simple as just adding another “Get-ChildItem” and pointing it to the source. Here is the whole thing.
+And that's it. Now just run all the installers from the share instead of navigating to different shares. Also, it helps that you delete them as they're installed, so you know what you've done as inevitably something will pull you away from this.
 
 ```powershell
 # Douglas Francis
@@ -92,4 +92,4 @@ Import-Module ServerManager
 Get-WindowsFeature -Name SNMP* | Add-WindowsFeature -IncludeManagementTools -Credential $user | Out-Null
 ```
 
-I hope my little set of scripts will make your server builds quicker and less painful. As I add and edit them I’ll put updates out.
+I hope my little set of scripts will make your server builds quicker and less painful. As I add and edit them, I’ll put updates out.

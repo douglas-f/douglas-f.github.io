@@ -35,7 +35,7 @@ Connect-MSOLService -credential $creds
 Connect-O365
 ```
 
-Now, with a company of our size it is not uncommon to have multiple requests come in on our daily termination report that have mailboxes that need to be changed. As I didn’t want to have to rerun this script and enter credentials each time I used a DO loop to run the command multiple times without running the script each time.
+Now, with a company of our size, it is not uncommon to have multiple requests come in on our daily termination report that has mailboxes that need to be changed as I didn’t want to have to rerun this script and enter credentials each time I used a DO loop to run the command multiple times without running the script each time.
 
 ```powershell
 # Getting Name of the mailbox to be converted
@@ -57,10 +57,10 @@ Get-MsolUser -UserPrincipalName $Mailbox | Ft UserPrincipalName,DisplayName,Lice
 Until ($Mailbox -Like "q")
 ```
 
-As I’m giving these to helpdesk/ID team staff that have varying levels of technical knowledge I wanted to make things slightly more user friendly. And nice green colors make everyone feel better right? Right. The issue I had was that the Read-Host cmdlet does not allow you to change the color of the prompt. To get around this I use Write-Host with the Foreground color and end it with the -NoNewLine flag. So when I follow that up with the Read-Host everything is on one nice line.
+As I'm giving these to helpdesk/ID team staff that have varying levels of technical knowledge, I wanted to make things slightly more user-friendly. And nice green colors make everyone feel better, right? Right. The issue I had was that the Read-Host cmdlet does not allow you to change the color of the prompt. To get around this, I use Write-Host with the Foreground color and end it with the -NoNewLine flag. So when I follow that up with the Read-Host, everything is on one line.
 
-As for the loop a simple Do until $Mailbox -Like “q” runs the script section over and over again until the user hits the ‘q’ key and it finally exits. And finally I grab what license are assigned to that user and display it. I do this for a couple of reasons. First I’ve had other scripts that work great until something changes in the cloud and all of the sudden it doesn’t work so it is nice to have verification. Secondly with multiple licenses that not all users are assigned the script will give those. I didn’t want to code it in and have the script error out which would lead to a confused helpdesk/ID team person and eventually leading to them just ignoring errors. So now if a license shows up after this is ran the users can shoot me an email and I can remove it. Until I trust them enough to do things in the web portal even with their limited access.
+As for the loop a simple Do until $Mailbox -Like "q" runs the script section over and over again until the user hits the 'q' key and it finally exits. And finally, I grab what license is assigned to that user and display it. I do this for a couple of reasons. First, I've had other scripts that work great until O365 has some changes, and it doesn't, so it is nice to have verification. Secondly, with multiple licenses that not all users are assigned the script will give those. I didn't want to code it in and have the script error out, which would lead to a confused helpdesk/ID team person and eventually leading to them just ignoring errors. So now if a license shows up after this runs, the users can shoot me an email, and I can remove it.
 
-Finally if you do not know what licenses your company has a simple “Get-MsolAccountSku” command will give you a list of licenses that you have along with the number you have and the number used.
+Finally, if you do not know what licenses your company has a simple "Get-MsolAccountSku" command will give you a list of licenses that you have, along with the consumption.
 
-One quick word there are a few things you need for this to work. The Microsoft Online Service Sign-in Assistant and the Azure Active Directory Module for Windows Powershell to be able to connect along with powershell v4 with latest updates of .Net. If you’d like to see how I ended up giving this to the helpdesk/ID team staff check out my XenApp post here.
+One quick word there are a few things you need for this to work. The Microsoft Online Service Sign-in Assistant and the Azure Active Directory Module for Windows Powershell to be able to connect along with PowerShell v4 with the latest updates of .Net. If you'd like to see how I ended up giving this to the helpdesk/ID team staff check out my XenApp post here.

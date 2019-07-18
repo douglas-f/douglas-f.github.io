@@ -10,18 +10,18 @@ tags:
   - Automation
 ---
 
-In Part I of this series we took a new 2012 R2 server from fresh ISO to domain join, today we will build upon that by performing these tasks
+In Part I of this series, we took a new 2012 R2 server from fresh ISO to domain join, today we will build upon that by performing these tasks.
 
 - Windows Datacenter License activation
 - Install Michal Gajda's PowerShell module for Windows Update.
 - Create a folder for storing our software packages
 - Enable RDP
 - Update Firewall rules
-- Grab and install latest updates.
+- Grab and install the latest updates.
 
-We will be doing a lot more work in Part II than we did in Part I so lets dig into it. 
+We will be doing a lot more work in Part II than we did in Part I so let's dig into it.
 
-Using a datacenter/volume licensing server license we'll apply that first with a WMI call.
+Using a datacenter/volume licensing server license, we'll apply that first with a WMI call.
 
 ```powershell
 # Activating windows
@@ -40,7 +40,7 @@ New-Item -ItemType directory -Path C:\PowerShell_Install_Temp
 cd C:\PowerShell_Install_Temp
 ```
 
-Next step, we're going to get the ZIP file of Michal Gajda’s Windows update module from the TechNet gallery. Optionally, you could have this on a file share somewhere and grab it from there.
+Next step, we're going to get the ZIP file of Michal Gajda's Windows update module from the TechNet gallery. Optionally, you could have this on a file share somewhere and grab it from there.
 
 ```powershell
 # Pulling the zip from the net
@@ -57,7 +57,7 @@ $shell.Namespace(“C:\Windows\System32\WindowsPowerShell\v1.0\Modules”).copyh
 }
 ```
 
-If you have standard firewall rules you should apply them here. As a *terrible* example this is disabling all of the firewall rules. Please don't actually do this and create real profile and apply them.
+If you have standard firewall rules, you should apply them here. As a *terrible* example this is disabling all of the firewall rules. Please don't do this and create a real profile and apply them.
 
 Following that quick RDP config and check for windows updates using the module we grabbed earlier.
 
@@ -79,7 +79,7 @@ Import-Module PSWindowsUpdate
 Get-WUInstall
 ```
 
-The windows update module will run, asking if you want to grab all updates or just one, then it will ask if you want to reboot after updates are installed.
+The windows update module will run, asking if you want to grab all updates or just one, then it will ask if you want to reboot after updates complete.
 
 Here is the whole thing.
 

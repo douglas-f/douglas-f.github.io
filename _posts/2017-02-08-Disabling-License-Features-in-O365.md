@@ -13,7 +13,7 @@ tags:
   - Automation
 ---
 
-With the changes Microsoft has deployed to O365 adding new Skype plan options to K1 accounts and updating the plan on other license plans I needed to remove this license for ~5000 users.
+With the changes Microsoft has deployed to O365, adding new Skype plan options to K1 accounts and updating the plan on other license plans, I needed to remove this license for ~5000 users.
 
 Some of my K1 users have licenses solely for Sharepoint Online while some have it for both Exchange and Sharepoint.
 
@@ -21,15 +21,15 @@ What I’ve done is get all the MSOL users in my domain storing that in  $alluse
 
 Then I loop through getting all of my K1 accounts, do a Get-Mailbox to determine if they have a mailbox so that I don’t remove the license options for Exchange for people that already have it.
 
-Depending on that erroring out or not I create a new MSOL license then assign the right permissions.
+Depending on that erroring out or not, I create a new MSOL license then assign the right permissions.
 
-If you only need to remove the Skype plan this would be the new license option
+If you only need to remove the Skype plan, this would be the new license option.
 
 ```powershell
 $licensePlan = New-MsolLicenseOptions -AccountSkuId COMPANY:DESKLESSPACK -DisabledPlans "MCOIMP"
 ```
 
-This is the fastest way to run this but I have a server dedicated to running powershell scripts so I just kick it off and wait.
+This isn't the fastest way to run this but I have a server dedicated to running powershell scripts so I just kick it off and wait.
 
 ```powershell
 <#	
@@ -38,7 +38,7 @@ This is the fastest way to run this but I have a server dedicated to running pow
 	 Created with: 	SAPIEN Technologies, Inc., PowerShell Studio 2016 v5.3.130
 	 Created on:   	1/10/2017 1:08 PM
 	 Created by:   	Douglas Francis
-	 Organization: 	TheSysAdmin.IO 
+	 Organization: 	PoshOps.io
 	 Filename:     	Remove-SkypeK1License
 	===========================================================================
 	.DESCRIPTION
@@ -79,4 +79,3 @@ foreach ($user in $k1users)
 	
 }
 ```
-

@@ -13,29 +13,28 @@ tags:
   - Automation
 ---
 
-Previously in this post I talked about cleaning up inactive user accounts. This is how I am automating the same process for computer accounts. Note: in my environment some *nix based computers did not seem to consistently update the value we are looking at which may cause some issues. Thankfully the only *nix based computers in my environment are servers and I am excluding this from my automation. 
+Previously, I talked about cleaning up inactive user accounts. This is how I am automating the same process for computer accounts. Note: in my environment, some *nix based computers did not seem to consistently update the value we are looking at, which may cause some issues. Thankfully the only *nix based computers in my environment are servers, and I am excluding this from my automation. 
 
-My scenario is having a multitude of locations across a dozen locations where the local techs have access to add and remove computers from the domain. As such these computers don’t always get removed from the environment and I needed a way to do some cleanup. I created this script to run as a scheduled task on my PoSH automation server every week.
+My scenario is having a multitude of locations across a dozen locations where the local techs have access to add and remove computers from the domain. These computers don’t always get removed from the environment, and I needed a way to do some cleanup. I created this script to run as a scheduled task on my PoSH automation server every week.
 
-What I’m doing is searching for all computer objects in Active Directory, excluding the OU’s that my servers reside in. Mostly because if the issue I noted with *nix based computers and avoiding unnecessary outages is a good thing.
+What I’m doing is searching for all computer objects in Active Directory, excluding the OU’s that my servers reside in. Mostly because if the issue I noted with *nix-based computers and avoiding unnecessary outages is a good thing.
 
-Once the computers that have been identified as inactive, in my case 60 days since checking in with the domain, they are disabled and moved to a term computers OU.
+Once the computers that have been identified as inactive; in my case 60 days since checking in with the domain, they are disabled and moved to a term computers OU.
 
-
-Getting all computer objects, excluding those in my Server OU’s and the termed computer OU, assigning those to the $computers variable.
+I am getting all computer objects, excluding those in my Server OU’s and the termed computer OU, assigning those to the $computers variable.
 
 ```powershell
 Import-Module ActiveDirectory
 $computers = Get-ADComputer -Filter * -Properties lastlogondate | where { $_.distinguishedName -notmatch "OU=Server_New,OU=Corporate,DC=domain,DC=net" -and $_.distinguishedName -notmatch "OU=Servers,OU=Corporate,DC=domain,DC=net" -and $_.distinguishedName -notmatch "OU=TermComputerAccounts,OU=Termed Accounts,DC=domain,DC=net" }
 ```
 
-Now that I have all the computer objects I filter those out by the ones that have not contacted the domain in over 60 days, while also excluding newly created objects made within the previous week.
+Now that I have all the computer objects, I filter those out by the ones that have not contacted the domain in over 60 days, while also excluding newly created objects made within the previous week.
 
 ```powershell
 $InactiveComputers = $computers | Where { $_.LastLogonDate -le $(Get-Date).AddDays(-60) -and $_.Created -le $(Get-Date).AddDays(-7) }
 ```
 
-Next I export those results to a CSV that I will keep if I ever need to know when a specific computer was removed along with what OU it was in.
+Next, I export those results to a CSV that I keep. If I ever need to know when a specific computer was removed along with what OU it was in I have the log.
 
 ```powershell
 $Path = "C:\Scripts\Script_Results\TermComputers"
@@ -43,7 +42,7 @@ $Filename = (Get-date).ToString(“MM-dd-yyyy-HH-mm-ss”) + “ - 60DayInActive
 $InactiveComputers | select name, lastlogondate, distinguishedname | Export-Csv $Path\$Filename -NoTypeInformation
 ```
 
-Now I will loop through all of those results, disable the AD account and move it to the termed computers OU.
+Now I will loop through all of those results, disable the AD account, and move it to the termed computers OU.
 
 ```powershell
 foreach ($computer in $InactiveComputers)
@@ -71,7 +70,7 @@ Here is the entire thing beginning to end. Code on GitHub.
 	 Created with: 	SAPIEN Technologies, Inc., PowerShell Studio 2015 v4.2.95
 	 Created on:   	10/9/2015 2:05 PM
 	 Created by:   	Douglas Francis
-	 Organization: 	SnarkySysAdmin.net
+	 Organization: 	PoshOps.io
 	 Filename:     	60DayInactiveComputers
 	 Version: 		1.0
 	===========================================================================

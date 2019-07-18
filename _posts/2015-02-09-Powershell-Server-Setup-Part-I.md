@@ -10,18 +10,18 @@ tags:
   - Automation
 ---
 
-Working on my environment and needing to build out new servers fairly quickly, and not having SCCM or another provisioning tool running at the moment I setout to leverage some powershell scripts that would take me from base install off ISO to a functioning box with a lot less effort on my part.
+Working on my environment and needing to build out new servers fairly quickly, and not having SCCM or another provisioning tool running at the moment I set out to leverage some PowerShell scripts that would take me from the base install off ISO to a functioning box with a lot less effort on my part.
 
-This is broken up into three parts, based off the three scripts I created for this process, this was developed on 2012R2 using PowerShell v3.
+I've broken up this into three parts, based on the three scripts I created for this process, this was developed on 2012R2 using PowerShell v3.
 
 <!--more-->
 
 The first script in this setup is laying the groundwork for the rest of the deployment.
 
-- IP info is inputted and set
-- Hostname is set
+- Set IP info
+- Set Hostname
 - Domain join occurs
-- Server reboot to apply those changes.
+- Server reboots to apply those changes.
 
 This will be a partially interactive script, using 'Read-Host' to get info when required.
 
@@ -35,7 +35,7 @@ $DNS2 = Read-Host "Enter Second DNS Address"
 $DNS = ($DNS1, $DNS2) # this is set like this bc the SetDNSServerSearchOrder only takes one option
 ```
 
-Next step is some WMI calls to update the IP address and DNS info on the server, followed by a small wait to ensure that the network link comes up before proceeding.
+The next step is some WMI calls to update the IP address and DNS info on the server, followed by a small wait to ensure that the network link comes up before proceeding.
 
 ```powershell
 # Sets the var to the wmi object so commands can be ran against it w/o typing the whole thing each time
@@ -49,9 +49,9 @@ $wmi.SetDNSServerSearchOrder($DNS)
 Start-Sleep -s 10
 ```
 
-At this point we have a server that has network connectivity and… that’s about it. However, it is a good start and you need to walk before you can run. Next up is hostname configuration and domain join.
+At this point, we have a server that has network connectivity and… that’s about it. However, it is a good start, and you need to walk before you can run. Next up is hostname configuration and domain join.
 
-The only thing you’ll need to change in this block is putting your appropriate domain in. And of course providing credentials of a user on the domain that has the authority to add/remove computers and change their names.
+The only thing you’ll need to change in this block is putting your appropriate domain. And of course, providing credentials of a user on the domain that has the authority to add/remove computers and change their names.
 
 ```powershell
 # Adding computer to the domain & getting domain join creds
@@ -66,7 +66,7 @@ $hostname = Read-Host "Enter Hostname"
 Rename-Computer -NewName $hostname -DomainCredential $user
 ```
 
-The next step of this process is rebooting the server for domain/name changes to go into effect. 
+The next step of this process is rebooting the server for domain/name changes to go into effect.
 
 ```powershell
 # Restart notification & reboot
