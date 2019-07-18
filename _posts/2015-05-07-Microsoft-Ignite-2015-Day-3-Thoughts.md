@@ -8,7 +8,7 @@ tags:
   - Ignite
   - Microsoft
   - Education
-  - Confrences
+  - Conferences
 ---
 
 I am waiting for my first session to start for Day 4 so I figured I’d write up my thoughts on Day 3 and a few other things I have noticed so far at the conference.

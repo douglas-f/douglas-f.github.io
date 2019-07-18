@@ -8,7 +8,7 @@ tags:
   - Ignite
   - Microsoft
   - Education
-  - Confrences
+  - Conferences
 ---
 This year I had the fantastic opportunity to attend Microsoft Ignite. My first Microsoft conference! However, it is not all that I thought it would be. Now, do not get me wrong. There is some awesome stuff going on, but there are some things I am thrilled with.
 

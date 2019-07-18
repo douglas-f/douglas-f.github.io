@@ -8,7 +8,7 @@ tags:
   - Ignite
   - Microsoft
   - Education
-  - Confrences
+  - Conferences
 ---
 
 If you saw my Day 1 post, you know that I was not overly excited by it. There was not anything that really Ignited my passion for sure. However, Day 2 overall was a much better experience, but still not exactly what I was expecting from Microsoft's newest conference.
