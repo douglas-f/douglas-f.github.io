@@ -8,7 +8,6 @@ tags:
   - O365
   - Office 365
   - Azure AD
-  - Windows
   - Microsoft
 ---
 
