@@ -13,6 +13,8 @@ tags:
 
 I frequently have conversations with customers around what their authentication options are with Azure Active Directory. More specifically, the conversation leads to reasons why they should use Password Hash Synchronization over other options.
 
+<!--more-->
+
 Generally speaking, there are three options for authentication in the Azure AD space from Active Directory synced accounts.
     - Password Hash Synchronization (PHS)
     - Pass-thru authentication (PTA)
