@@ -31,6 +31,7 @@ Finally, you need to install the PowerShell module for WVD
 
 Step one to deploying WVD is navigating to the [Windows Virtual Desktop Consent Page](https://rdweb.wvd.microsoft.com/). The consent page is where we are going to get two new Enterprise applications in the AAD tenant for managing the WVD servers and for client access.
 ![alt text][consent]
+
 [consent]: https://poshops.io/assets/images/azurevdi/vdiConsentPage.png "Windows Virtual Desktop Consent"
 
 Input the Azure Active Directory Directory ID (GUID) for the AAD tenant users will be authenticating with. Once the submit button is hit you'll need to authenticate to Azure AD and consent to application permissions. This is read access to Azure AD and read assess to the Graph API.
