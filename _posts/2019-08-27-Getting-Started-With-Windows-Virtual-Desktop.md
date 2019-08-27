@@ -35,6 +35,7 @@ Step one to deploying WVD is navigating to the [Windows Virtual Desktop Consent 
 [consent]: https://poshops.io/assets/images/azurevdi/vdiConsentPage.png "Windows Virtual Desktop Consent"
 
 Input the Azure Active Directory Directory ID (GUID) for the AAD tenant users will be authenticating with. Once the submit button is hit you'll need to authenticate to Azure AD and consent to application permissions. This is read access to Azure AD and read assess to the Graph API.
+
 ![alt text][permissions]
 
 [permissions]: https://poshops.io/assets/images/azurevdi/wvdPermissions.png "WVD Server Permissions"
@@ -74,3 +75,63 @@ $AadDirectory = 'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX'
 $AzSubscription = 'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX'
 New-RdsTenant -Name $tenantName -AadTenantId $AadDirectory -AzureSubscriptionId $AzSubscription
 ```
+
+![alt text][pstenantcreation]
+
+[pstenantcreation]: https://poshops.io/assets/images/azurevdi/powershellCreateRdsTenant.png "Powershell - Create RDS Tenant"
+
+Next we need to connect to Azure AD
+
+```powershell
+$aadcontext = Connect-AzureAD
+```
+
+![alt text][connectaad]
+
+[connectaad]: https://poshops.io/assets/images/azurevdi/connectAAD.png "Powershell - Connect Azure AD"
+
+Best practice is to create an AAD Service Principal for the WVD services to run under. You *could* create the deployment under a named user, but it is not recommended.
+
+```powershell
+$svcPrincipal = New-AzureADApplication -AvailableToOtherTenants $true -DisplayName "Windows Virtual Desktop Svc Principal"
+$svcPrincipalCreds = New-AzureADApplicationPasswordCredential -ObjectId $svcPrincipal.ObjectId
+```
+
+![alt text][createsp]
+
+[createsp]: https://poshops.io/assets/images/azurevdi/powershellcreatesp.png "Powershell - Create AAD Service Principal"
+
+After creation of the Service Principal we are going to assign it RDS owner rights
+
+```powershell
+New-RdsRoleAssignment -RoleDefinitionName "RDS Owner" -ApplicationId $svcPrincipal.AppId -TenantName $tenantName
+```
+
+![alt text][rdspermissions]
+
+[rdspermissions]: https://poshops.io/assets/images/azurevdi/addRdsPermissions.png "Powershell - Add RDS Permissions"
+
+Next up is creating a new credential object and updating that role. 
+
+```powershell
+$creds = New-Object System.Management.Automation.PSCredential($svcPrincipal.AppId, (ConvertTo-SecureString $svcPrincipalCreds.Value -AsPlainText -Force))
+
+Add-RdsAccount -DeploymentUrl "https://rdbroker.wvd.microsoft.com" -Credential $creds -ServicePrincipal -AadTenantId $aadContext.TenantId.Guid
+```
+
+![alt text][addpermissions]
+
+[addpermissions]: https://poshops.io/assets/images/azurevdi/powershellUpdatePermissions.png "Powershell - Update RDS Role"
+
+We now need to make note of the Application ID and the Service Principal key, keep track of this because after you close this PowerShell session you will have to reset the Service Principal key to get access again. We will use this information in the portal for the WVD deployment.
+
+```powershell
+$svcPrincipal.appid 
+$svcPrincipalCreds.value
+```
+
+![alt text][secrets]
+
+[secrets]: https://poshops.io/assets/images/azurevdi/appsecrets.png "Powershell - App Secrets"
+
+Okay we're almost there! Time to drop into the Azure Portal and create our WVD deployment!
