@@ -35,8 +35,9 @@ Step one to deploying WVD is navigating to the [Windows Virtual Desktop Consent 
 [consent]: https://poshops.io/assets/images/azurevdi/vdiConsentPage.png "Windows Virtual Desktop Consent"
 
 Input the Azure Active Directory Directory ID (GUID) for the AAD tenant users will be authenticating with. Once the submit button is hit you'll need to authenticate to Azure AD and consent to application permissions. This is read access to Azure AD and read assess to the Graph API.
-![WVD Server Permissions][permissions]
-[permissions]: https://poshops.io/assets/images/azurevdi/wvdPermissions.png
+![alt text][permissions]
+
+[permissions]: https://poshops.io/assets/images/azurevdi/wvdPermissions.png "WVD Server Permissions"
 
 After consenting to the Server App go back and repeat the same process for the client application as well.
 Please wait at least 30 seconds between granting consent so AAD can process the changes on your tenant.
@@ -47,15 +48,17 @@ In the Azure Portal navigate to enterprise applications by going to 'Azure Activ
 
 You will see the new applications you consented to, 'Windows Virtual Desktop' and 'Windows Virtual Desktop Client'.
 
-![Enterprise Application Search][enterpriseApp]
-[enterpriseApp]: https://poshops.io/assets/images/azurevdi/enterpriseAppSearch.png
+![alt text][enterpriseApp]
+
+[enterpriseApp]: https://poshops.io/assets/images/azurevdi/enterpriseAppSearch.png "Enterprise Application Search"
 
 Add an administrator user 'TenantCreator' permissions, as of now in the preview this is the default and only permissions option that can be delegated.
 
-![Tenant Creator Permissions][tenantcreator]
-[tenantcreator]: https://poshops.io/assets/images/azurevdi/wvdTenantCreator.png
+![alt text][tenantcreator]
 
-Now it's time to drop into PowerShell and setup everything we need to go deploy the resources. Note: As of now you cannot use PowerShell Core and need to use Windows Powershell. 
+[tenantcreator]: https://poshops.io/assets/images/azurevdi/wvdTenantCreator.png "Tenant Creator Permissions"
+
+Now it's time to drop into PowerShell and setup everything we need to go deploy the resources. Note: As of now you cannot use PowerShell Core and need to use Windows Powershell.
 
 Add the deployment URL for the VDI environment. As of right now in Preview this is the only option. I expect the GA release to allow for custom domains here in the future.
 
