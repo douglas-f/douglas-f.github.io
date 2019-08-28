@@ -29,6 +29,8 @@ Finally, you need to install the PowerShell module for WVD
  Install-Module -Name Microsoft.RDInfra.RDPowerShell
  ```
 
+---
+
 Step one to deploying WVD is navigating to the [Windows Virtual Desktop Consent Page](https://rdweb.wvd.microsoft.com/). The consent page is where we are going to get two new Enterprise applications in the AAD tenant for managing the WVD servers and for client access.
 ![alt text][consent]
 
