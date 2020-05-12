@@ -59,7 +59,8 @@ plugins:
 
 author:
   name   : "Douglas Francis"
-  avatar : "/assets/images/bio-photo.jpg"
+# avatar : "/assets/images/bio-photo.jpg"
+  avatar : "/assets/images/display-photo.jpg"
   bio    : "Powershell junkie, Microsoft Azure PFE, woodworker, motorcylist"
   links:
     - label: "Website"
