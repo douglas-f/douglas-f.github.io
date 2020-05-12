@@ -16,9 +16,8 @@
 title: PoShOps
 email: Douglas@PoshOps.io
 description: >- # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
+  DevOps learning and blog around Azure, PowerShell, Infrastructure as Code and Terraform.
+  I am a Microsoft Certified Trainer and enjoy helping others learn and sharing my knowledge.
 twitter_username: "@_Doug_F"
 github_username: "douglas-f"
 minimal_mistakes_skin: dark
@@ -63,9 +62,9 @@ author:
   avatar : "/assets/images/display-photo.jpg"
   bio    : "Powershell junkie, Microsoft Azure PFE, woodworker, motorcylist"
   links:
-    - label: "Website"
-      icon: "fas fa-fw fa-link"
-      url: "https://"
+#    - label: "Website"
+#      icon: "fas fa-fw fa-link"
+#      url: "https://"
     - label: "Twitter"
       icon: "fab fa-fw fa-twitter-square"
       url: "http://twitter.com/_doug_f"
@@ -74,7 +73,7 @@ author:
       url: "http://github.com/douglas-f/"
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
-      url: "https://instagram.com/"
+      url: "https://www.instagram.com/_douglas_francis/"
 
 footer:
   links:
@@ -84,9 +83,9 @@ footer:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "http://github.com/douglas-f/"
-    - label: "Instagram"
-      icon: "fab fa-fw fa-instagram"
-      url: "https://instagram.com/"
+#    - label: "Instagram"
+#      icon: "fab fa-fw fa-instagram"
+#      url: "https://instagram.com/"
 
 defaults:
   # _posts
